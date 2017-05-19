@@ -7,7 +7,7 @@ import org.apache.storm.topology.base.BaseWindowedBolt;
 import stormTP.operator.ExitBolt;
 import stormTP.operator.StreamSimSpout;
 import stormTP.operator.bolt.CheckPointsBolt;
-import stormTP.operator.bolt.GivePointsBolt;
+import stormTP.operator.bolt.GivePointsBoltBis;
 
 public class TopologyT7 {
 	
@@ -30,13 +30,13 @@ public class TopologyT7 {
         builder.setSpout("localStream", spout);
 		builder.setSpout("localStream2", spout2);
         /*Affectation à la topologie du bolt qui ne fait rien, il prendra en input le spout localStream*/
-        builder.setBolt("GivePointsBoltBis", new GivePointsBolt(), nbExecutors)
+        builder.setBolt("GivePointsBoltBis", new GivePointsBoltBis(), nbExecutors)
 				.shuffleGrouping("localStream");
         /*Affectation à la topologie du bolt qui émet le flux de sortie, il prendra en input le bolt nofilter*/
 		builder.setBolt("CheckPointsBolt", new CheckPointsBolt()
 				.withMessageIdField("id")
 				.withWindow(new BaseWindowedBolt.Count(2)), nbExecutors)
-				//.shuffleGrouping("GivePointsBoltBis");
+				.shuffleGrouping("GivePointsBoltBis")
 				.shuffleGrouping("localStream2");
         /*Affectation à la topologie du bolt qui émet le flux de sortie, il prendra en input le bolt nofilter*/
         builder.setBolt("exit", new ExitBolt(portOUTPUT, ipmOUTPUT), nbExecutors).shuffleGrouping("CheckPointsBolt");

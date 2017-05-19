@@ -28,7 +28,7 @@ public class ComputeScoreBolt extends BaseStatefulBolt<KeyValueState<String, Int
         //kvState.
 
         JsonObjectBuilder r = Json.createObjectBuilder();
-        r.add("id",  t.getInteger(0));
+        r.add("id",  t.getLongByField("id"));
         r.add("name",  t.getString(1));
         r.add("team",  t.getString(2));
 

@@ -45,33 +45,34 @@ public class CheckPointsBolt extends BaseStatefulWindowedBolt<KeyValueState<Stri
         ArrayList<String> name = new ArrayList<>();
         ArrayList<String> team = new ArrayList<>();
         ArrayList<Integer> point = new ArrayList<>();
+        System.out.println("***sizetp"+inputWindow.get().size());
+        if (inputWindow.get().size() >= 2) {
 
+            System.out.println("***jesuis");
+            for (Tuple t : inputWindow.get()) {
+                id.add(t.getLongByField("id"));
 
-        for (Tuple t : inputWindow.get()) {
-
-            id.add(t.getLongByField("id"));
-            name.add(t.getStringByField("name"));
-            team.add(t.getStringByField("team"));
-            point.add(t.getInteger(3));
-
-        }
-
-        if (id.get(0) == id.get(1)){
-            JsonObjectBuilder r = Json.createObjectBuilder();
-            r.add("name", name.get(0));
-            r.add("idscore", id.get(0));
-            if (point.get(0) == point.get(1)){
-                r.add("consistent", "OK");
-            }else{
-                r.add("consistent", "Houston, We've Had a Problem !");
+                name.add(t.getStringByField("name"));
+                team.add(t.getStringByField("team"));
+                point.add(t.getInteger(3));
             }
-            JsonObject row = r.build();
 
-            collector.emit(inputWindow.get(),new Values(row.toString()));
-        }
+            if (id.get(0) == id.get(1)) {
+                JsonObjectBuilder r = Json.createObjectBuilder();
+                r.add("name", name.get(0));
+                r.add("idscore", id.get(0));
+                if (point.get(0) == point.get(1)) {
+                    r.add("consistent", "OK");
+                } else {
+                    r.add("consistent", "Houston, We've Had a Problem !");
+                }
+                JsonObject row = r.build();
+
+                collector.emit(inputWindow.get(), new Values(row.toString()));
+            }
 
 
-
+    }
 
 
 
