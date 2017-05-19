@@ -1,4 +1,4 @@
-package stormTP.operator.test;
+package stormTP.operator.bolt;
 
 import org.apache.storm.state.KeyValueState;
 import org.apache.storm.task.OutputCollector;
@@ -15,7 +15,7 @@ import javax.json.JsonObjectBuilder;
 import java.util.Map;
 
 
-public class TestStatefulBolt extends BaseStatefulBolt<KeyValueState<String, Integer>> {
+public class ComputeScoreBolt extends BaseStatefulBolt<KeyValueState<String, Integer>> {
 	private static final long serialVersionUID = 4262379330722107343L;
     KeyValueState<String, Integer> kvState;
     int sum;
@@ -24,18 +24,23 @@ public class TestStatefulBolt extends BaseStatefulBolt<KeyValueState<String, Int
     
     @Override
     public void execute(Tuple t) {
-    	
-    	sum++;
-		
-		kvState.put("sum", sum);
-		    
-	    JsonObjectBuilder r = Json.createObjectBuilder();
-	    r.add("test", "statelessWithWindow");
-	    r.add("nbNewTuples", 1);
-		r.add("totalNumberOfTuples", sum);
-	    JsonObject row = r.build();
 
-	        collector.emit(t,new Values(row.toString()));
+        //kvState.
+
+        JsonObjectBuilder r = Json.createObjectBuilder();
+        r.add("id",  t.getInteger(0));
+        r.add("name",  t.getString(1));
+        r.add("team",  t.getString(2));
+
+        //int score = kvState.get(t.getString(1));
+       // score += t.getInteger(3);
+       // kvState.put(t.getString(1),score);
+        sum+= t.getInteger(3);
+
+        kvState.put("sum", sum);
+        r.add("score",  sum);
+        JsonObject row = r.build();
+        collector.emit(t,new Values(row.toString()));
     }
 
     @Override

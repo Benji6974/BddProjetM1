@@ -1,4 +1,4 @@
-package stormTP.operator.test;
+package stormTP.operator.bolt;
 
 import org.apache.storm.state.KeyValueState;
 import org.apache.storm.task.OutputCollector;
@@ -13,12 +13,13 @@ import org.apache.storm.windowing.TupleWindow;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import java.util.ArrayList;
 import java.util.Map;
 
 
 
-public class TestStatefulWindowBolt extends BaseStatefulWindowedBolt<KeyValueState<String, Integer>> {
-	private static final long serialVersionUID = 4262379330788107343L;
+public class CheckPointsBolt extends BaseStatefulWindowedBolt<KeyValueState<String, Integer>> {
+    private static final long serialVersionUID = 4262379330788107343L;
     private  KeyValueState<String, Integer> state;
     private  int sum;
 
@@ -38,23 +39,43 @@ public class TestStatefulWindowBolt extends BaseStatefulWindowedBolt<KeyValueSta
 
     @Override
     public void execute(TupleWindow inputWindow) {
-    	
-    	int cpt = 0;
-		
-        for (Tuple t : inputWindow.get()) {
-        	cpt++;
-    		
-    	}
-        state.put("sum", cpt);
 
-        JsonObjectBuilder r = Json.createObjectBuilder();
-        r.add("test", "statelessWithWindow");
-        r.add("nbNewTuples", cpt);
-		r.add("totalNumberOfTuples", cpt);
-        JsonObject row = r.build();
-	    
-        collector.emit(inputWindow.get(),new Values(row.toString()));
-        
+
+        ArrayList<Long> id = new ArrayList<>();
+        ArrayList<String> name = new ArrayList<>();
+        ArrayList<String> team = new ArrayList<>();
+        ArrayList<Integer> point = new ArrayList<>();
+
+
+        for (Tuple t : inputWindow.get()) {
+
+            id.add(t.getLongByField("id"));
+            name.add(t.getStringByField("name"));
+            team.add(t.getStringByField("team"));
+            point.add(t.getInteger(3));
+
+        }
+
+        if (id.get(0) == id.get(1)){
+            JsonObjectBuilder r = Json.createObjectBuilder();
+            r.add("name", name.get(0));
+            r.add("idscore", id.get(0));
+            if (point.get(0) == point.get(1)){
+                r.add("consistent", "OK");
+            }else{
+                r.add("consistent", "Houston, We've Had a Problem !");
+            }
+            JsonObject row = r.build();
+
+            collector.emit(inputWindow.get(),new Values(row.toString()));
+        }
+
+
+
+
+
+
+
     }
 
     @Override

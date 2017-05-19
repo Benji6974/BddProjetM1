@@ -3,19 +3,19 @@
  */
 package stormTP.operator;
 
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.logging.Logger;
-
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.IRichSpout;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
+import stormTP.stream.StreamBuffer;
+
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 
 //import stormBench.stormBench.utils.FieldNames;
-import stormTP.stream.StreamBuffer;
 
 /**
  * @author lumineau
@@ -63,7 +63,7 @@ public class StreamSimSpout implements IRichSpout {
 		try{
 			
 			json = this.sbuff.readTuple();
-			 //System.out.println("**** In StreamSimSpout : " + json + " is recieved !");
+			 System.out.println("**** In StreamSimSpout : " + json + " is recieved !");
     		    		
     	}
     	catch(NoSuchElementException nsee){ //logger.info("**** I'm waiting !");

@@ -1,4 +1,4 @@
-package stormTP.operator.test;
+package stormTP.operator.bolt;
 
 import org.apache.storm.state.KeyValueState;
 import org.apache.storm.task.OutputCollector;
@@ -11,11 +11,11 @@ import org.apache.storm.tuple.Values;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import java.io.StringReader;
 import java.util.Map;
 
 
-public class TestStatefulBolt extends BaseStatefulBolt<KeyValueState<String, Integer>> {
+public class GivePointsBoltBis extends BaseStatefulBolt<KeyValueState<String, Integer>> {
 	private static final long serialVersionUID = 4262379330722107343L;
     KeyValueState<String, Integer> kvState;
     int sum;
@@ -24,18 +24,27 @@ public class TestStatefulBolt extends BaseStatefulBolt<KeyValueState<String, Int
     
     @Override
     public void execute(Tuple t) {
-    	
-    	sum++;
-		
-		kvState.put("sum", sum);
-		    
-	    JsonObjectBuilder r = Json.createObjectBuilder();
-	    r.add("test", "statelessWithWindow");
-	    r.add("nbNewTuples", 1);
-		r.add("totalNumberOfTuples", sum);
-	    JsonObject row = r.build();
-
-	        collector.emit(t,new Values(row.toString()));
+        String s = t.getString(0);
+        JsonObject json = Json.createReader(new StringReader(s)).readObject();
+        int point = 0;
+        int x = json.getInt("x");
+        int y = json.getInt("y");
+        if ((x >=6 && x <=9 &&
+                (y >=3 && y <=6 || y >=15 && y <=18)) ||
+                (x >=17 && x <=24 &&
+                        y >=7 && y <=14) ||
+                (x >=32 && x <=35 &&
+                        (y >=3 && y <=6 || y >=15 && y <=18))){
+            if (json.getString("color").equals("black")){
+                point = 1;
+            }else if (json.getString("color").equals("red")){
+                point = 3;
+            }
+        }else{
+            point = 0;
+        }
+        long id = (long)json.getInt("id");
+        collector.emit(t,new Values(id,json.getString("name"),json.getString("team"),point));
     }
 
     @Override
@@ -52,7 +61,7 @@ public class TestStatefulBolt extends BaseStatefulBolt<KeyValueState<String, Int
     
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("json"));
+        declarer.declare(new Fields("id","name","team","point"));
     }
 
 

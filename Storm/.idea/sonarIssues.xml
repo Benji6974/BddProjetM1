@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$MAVEN_REPOSITORY$/org/apache/storm/storm-core/1.0.2/storm-core-1.0.2.jar!/org/apache/storm/shade/org/json/simple/JSONObject.class">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/pom.xml">
           <value>
             <set />
@@ -19,6 +24,116 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/BigDataSpout.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/GivePointsBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/StreamSimSpout.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/bolt/AnomalyDetectionBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/bolt/CheckPointsBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/bolt/ComputeScoreBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/bolt/GivePointsBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/bolt/GivePointsBoltBis.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/bolt/InfoScoreBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/bolt/PodiumBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/test/AnomalyDetectionBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/test/ComputeScoreBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/test/GivePointsBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/test/GivePointsBoltBis.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/test/TestStatefulBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/operator/test/TestStatefulWindowBolt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/topology/TopologyT1.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/topology/TopologyT2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/topology/TopologyT3.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/topology/TopologyT4.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/topology/TopologyT5.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/topology/TopologyT6.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/stormTP/topology/TopologyT7.java">
           <value>
             <set />
           </value>
